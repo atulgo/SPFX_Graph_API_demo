@@ -1,43 +1,57 @@
 import * as React from 'react';
-import styles from './SpfxGraphApiDemo.module.scss';
 import type { ISpfxGraphApiDemoProps } from './ISpfxGraphApiDemoProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { InitState, ISpfxGraphApiDemoState } from './ISpfxGraphApiDemoState';
+import { graphfi, GraphFI, SPFx as graphSPFx } from "@pnp/graph";
+import "@pnp/graph/lists";
+import "@pnp/graph/sites"
+import "@pnp/graph/list-item"
 
-export default class SpfxGraphApiDemo extends React.Component<ISpfxGraphApiDemoProps, {}> {
+import '@pnp/sp';
+import '@pnp/sp/lists';
+import '@pnp/sp/items';
+import '@pnp/sp/webs';
+import { spfi, SPFI, SPFx, SPFxToken } from '@pnp/sp';
+import { UploadFile } from './UploadFile';
+import { GetAadClient, TestAws_AadHttpClient } from './AadHttpClientTest';
+import styles from './SpfxGraphApiDemo.module.scss';
+
+export default class SpfxGraphApiDemo extends React.Component<ISpfxGraphApiDemoProps,ISpfxGraphApiDemoState > {
+  clientId:string = "850f8235-7ccd-4bf8-9bd5-fcd799d805f1";
+  tenantId:string = "23eff2d1-89b1-45ae-b476-48cf465542bf";
+  redirectUri:string = "https://4zh1xz.sharepoint.com/"; 
+  scope:string = "Sites.ReadWrite.All"; 
+  authUrl:string = `https://login.microsoftonline.com/${this.tenantId}/oauth2/v2.0/authorize?client_id=${this.clientId}` + `&response_type=code&redirect_uri=${encodeURIComponent(this.redirectUri)}` + `&response_mode=query&scope=${encodeURIComponent(this.scope)}&state=12345`;
+  _graph:GraphFI=graphfi().using(graphSPFx(this.props.context) );
+  _listId='97a8ed86-e5d4-4f00-aad5-6fb54f03032b';       // List Name - Test Extension
+  _TokUrl:string = 'https://login.microsoftonline.com/23eff2d1-89b1-45ae-b476-48cf465542bf/oauth2/token';
+  _sp:SPFI=spfi().using(SPFx(this.props.context));
+
+  apiHost='api://850f8235-7ccd-4bf8-9bd5-fcd799d805f1';
+  apiToConsume='https://rn5spkg241.execute-api.us-east-1.amazonaws.com/dev/uploadfile';
+
+  constructor(props:ISpfxGraphApiDemoProps){
+    super(props);
+    this.state=InitState;
+  }
+
+  _TokReqbody:string='grant_type=client_credentials&client_id=850f8235-7ccd-4bf8-9bd5-fcd799d805f1&client_secret=gPc8Q~g46k2Vt5aQUaLhpgm1pDCCm1TC3oRBjaPy&resource=https://graph.microsoft.com/' ;
+
+
+
   public render(): React.ReactElement<ISpfxGraphApiDemoProps> {
-    const {
-      description,
-      isDarkTheme,
-      environmentMessage,
-      hasTeamsContext,
-      userDisplayName
-    } = this.props;
+    return <>
+      <h1>Hello</h1>
+      {/* {this.state.ListItems.value.map(item=><div>{item.webUrl}</div>)}
+      <div className={styles.btndiv} ><button onClick={_=>GetListItems_PNPGraph(this)}> GET List Items </button>      </div>
+      <div className={styles.btndiv}><button onClick={_=>this.Authorize()}>Get Authorization Code</button>      </div>
+      <div className={styles.btndiv}><button onClick={_=>this.GetAccessToken()}>Get Access Token</button>      </div>
 
-    return (
-      <section className={`${styles.spfxGraphApiDemo} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
-        </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
-          </ul>
-        </div>
-      </section>
-    );
+      <div className={styles.btndiv}>{<button onClick={_=>SetListItemByid(this)}> EDIT Using Graph API </button>}      </div>
+      <div className={styles.btndiv}>{<button onClick={_=>EditList_WithoutGraphApi(this)}> EDIT Using Regular API </button>}      </div>
+      <div className={styles.btndiv}>{<button onClick={_=>CallAwsApi_aadclient(this)}> CallAwsApi_aadclient </button>}      </div> */}
+      <div className={styles.btndiv}>{<button onClick={_=>TestAws_AadHttpClient(this)}> Test Aadclient </button>}      </div> 
+      
+      {/* <div>{UploadFile(this)}</div> */}
+   </>
   }
 }

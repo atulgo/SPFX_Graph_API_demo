@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/spfxGraphApiDemo/SpfxGraphApiDemoWebPart.manifest.json"
         }
       ]
+    },
+    "upload-file-secure-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/uploadFileSecure/UploadFileSecureWebPart.js",
+          "manifest": "./src/webparts/uploadFileSecure/UploadFileSecureWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "SpfxGraphApiDemoWebPartStrings": "lib/webparts/spfxGraphApiDemo/loc/{locale}.js"
+    "SpfxGraphApiDemoWebPartStrings": "lib/webparts/spfxGraphApiDemo/loc/{locale}.js",
+    "UploadFileSecureWebPartStrings": "lib/webparts/uploadFileSecure/loc/{locale}.js"
   }
 }

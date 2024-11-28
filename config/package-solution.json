@@ -3,10 +3,16 @@
   "solution": {
     "name": "spfx-graph-api-demo-client-side-solution",
     "id": "7c57cd38-958e-463a-a2f6-0f9037ff2ea4",
-    "version": "1.0.0.0",
+    "version": "1.0.6.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true,
+    "skipFeatureDeployment": false,
     "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Sites.ReadWrite.All"
+      }
+    ],
     "developer": {
       "name": "",
       "websiteUrl": "",
@@ -30,7 +36,7 @@
         "title": "spfx-graph-api-demo Feature",
         "description": "The feature that activates elements of the spfx-graph-api-demo solution.",
         "id": "86e29930-cae4-4955-9659-f818478c8ce6",
-        "version": "1.0.0.0"
+        "version": "1.0.6.0"
       }
     ]
   },
