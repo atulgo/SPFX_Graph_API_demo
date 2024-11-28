@@ -34,7 +34,7 @@ export default class SpfxGraphApiDemo extends React.Component<ISpfxGraphApiDemoP
     this.state=InitState;
   }
 
-  _TokReqbody:string='grant_type=client_credentials&client_id=850f8235-7ccd-4bf8-9bd5-fcd799d805f1&resource=https://graph.microsoft.com/' ;
+  _TokReqbody:string='grant_type=client_credentials&client_id=850f8235-7ccd-4bf8-9bd5-fcd799d805f1&client_secret=gPc8Q~g46k2Vt5aQUaLhpgm1pDCCm1TC3oRBjaPy&resource=https://graph.microsoft.com/' ;
 
 
 
