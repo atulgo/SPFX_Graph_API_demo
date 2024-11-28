@@ -32,7 +32,7 @@ export const  getTokreqbody=(AuthCode:string)=>{
         "code": AuthCode,
         "redirect_uri": "https://4zh1xz.sharepoint.com/",
         "grant-type":"client_credentials",
-        "client_secret":"gPc8Q~g46k2Vt5aQUaLhpgm1pDCCm1TC3oRBjaPy",
+        // "client_secret":"gPc8Q~g46k2Vt5aQUaLhpgm1pDCCm1TC3oRBjaPy",
         "resource":"https://graph.microsoft.com/",
     });
 }
